@@ -1,0 +1,229 @@
+Task-1
+
+Requirements
+asgiref==3.7.2
+Django==4.2.10
+django-bootstrap4==22.3  # For handling Bootstrap templates
+django-crispy-forms==2.0  # For rendering forms with styling
+Pillow==9.4.0  # For image handling (if the template includes images)
+sqlparse==0.4.4
+
+Steps for Evaluators
+
+Step 1: Download the Template and Extract Files
+
+Step 2: Download dashtrap.zip and extract its contents.
+Set Up the Django Project
+
+Create a new Django project and app following these steps:
+django-admin startproject my_project
+cd my_project
+python manage.py startapp dashboard
+
+Step 3: Install Dependencies
+Use the requirements.txt file to install necessary dependencies:
+pip install -r requirements.txt
+
+Step 4: Add Static Files
+Move the static files (CSS, JS, and images) from the dashtrap.zip folder into the static/ directory in your Django app:
+dashboard/static/
+
+Step 5: Move Template Files
+Place the HTML templates from the dashtrap.zip file into the templates/ directory in your app:
+dashboard/templates/
+
+Step 6: Configure settings.py
+Add your app to INSTALLED_APPS:
+INSTALLED_APPS = [
+    ...
+    'dashboard',
+    'crispy_forms',  # If you're using crispy-forms
+    'bootstrap4',    # If using bootstrap4 for form rendering
+]
+Set up static files and template directories:
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'dashboard/static']
+
+TEMPLATES = [
+    {
+        ...
+        'DIRS': [BASE_DIR / 'dashboard/templates'],
+        ...
+    },
+]
+
+Step 7: Create URLs and Views
+Configure urls.py for your app and project to serve pages from the HTML templates.
+
+Step 8: Test the Setup
+Run the development server:
+python manage.py runserver
+
+Access the template-based pages in your browser to verify functionality.
+
+
+Task-2
+
+Setup Instructions
+
+Step 1: Create a Virtual Environment
+python -m venv venv
+source venv/bin/activate
+venv\Scripts\activate
+
+Step 2: Install Dependencies Run the following command to install the dependencies from requirements.txt:
+pip install -r requirements.txt
+
+Step 3: Apply Migrations Make sure the database is set up with the necessary tables:
+python manage.py makemigrations
+python manage.py migrate
+
+Step 4: Create a Superuser Create an admin user to access the Django admin panel:
+python manage.py createsuperuser
+
+Step 5: Run the Development Server Start the Django development server to test the application:
+python manage.py runserver
+
+Step 6: Access the Application
+Open a web browser and visit http://127.0.0.1:8000/.
+Use the following URLs for specific actions:
+Registration: /authentication/register/
+Login: /authentication/login/
+Change Password: /authentication/change_password/
+Profile Management:
+Home: /
+Profile List: /profiles/
+Add Profile: /profiles/add/
+Templates Ensure templates for forms and pages like register.html, login.html, change_password.html, password_reset.html, etc., are in the correct directories.
+
+requirements.txt
+plaintext
+Copy code
+asgiref==3.7.2
+Django==4.2.10
+django-bootstrap4==22.3  # If using Bootstrap forms
+django-crispy-forms==2.0  # If using Crispy forms
+sqlparse==0.4.4
+
+Additional Notes
+Database: By default, Django uses SQLite, so no additional setup is required. If you plan to use another database (e.g., PostgreSQL), ensure the correct database settings are added in settings.py.
+
+Static Files: If the app uses static files (CSS, JS), collect them:
+python manage.py collectstatic
+
+Test Users: Ensure that roles and companies are created in the database to test the profile management functionality.
+
+Task 3
+
+Step 1: Set Up a Virtual Environment
+Create a virtual environment and activate it:
+python -m venv venv
+source venv/bin/activate  # For macOS/Linux
+venv\Scripts\activate     # For Windows
+
+Install dependencies:
+pip install -r requirements.txt
+
+Step 2: Apply Migrations
+Apply the database migrations to set up the database schema:
+python manage.py makemigrations
+python manage.py migrate
+
+Step 3: Add User Profiles
+Create a superuser to manage the application:
+python manage.py createsuperuser
+Log in to the admin panel at /admin/ and add users and their corresponding profiles with preferred languages.
+
+Step 4: Set Up Localization
+Compile the language files for translation:
+django-admin compilemessages
+Ensure the .po and .mo files are correctly placed in the main/locale directory.
+
+Step 5: Run the Development Server
+Start the Django development server:
+python manage.py runserver
+
+Step 6: Test Multilingualism
+Switch Languages:
+Use the switch_language URL to test switching between English and French.
+Example: /switch_language/fr/ to switch to French.
+
+Test Dashboard Language:
+Log in as a user with a preferred language set in their profile. Verify that the dashboard and other main sections display text in the user's preferred language.
+
+Language-Specific Content:
+Navigate through the app (e.g., dashboard) and confirm that translated text (headers, navigation, etc.) switches correctly.
+
+Verify Session Persistence:
+Ensure that after switching languages, the selected language persists across sessions.
+
+Step 7: Optional - Create More Profiles
+Create additional users with different preferred languages and test logging in and viewing the dashboard.
+
+Expected Behavior:
+By default, the app starts in English.
+Switching to French updates the language for the session and reflects it in the UI.
+User profiles retain their preferred language, and it automatically activates upon login.
+
+
+Task 4
+
+Requirements
+asgiref==3.7.2
+Django==5.1.3
+sqlparse==0.4.4
+
+Steps for Evaluators
+
+Step 1: Set Up a Virtual Environment
+Create and activate a virtual environment:
+python -m venv venv
+source venv/bin/activate  # For macOS/Linux
+venv\Scripts\activate     # For Windows
+
+Install dependencies:
+pip install -r requirements.txt
+
+
+Step 2: Apply Migrations
+Apply migrations to set up the database:
+python manage.py makemigrations
+python manage.py migrate
+
+Step 3: Seed the Database
+Load initial data using the fixture:
+
+python manage.py loaddata main/fixtures/initial_data.json
+This will create:
+A system user with superuser privileges.
+A HelloWorld Company entry in the Company table.
+A Sample Product entry linked to the company.
+Alternatively, run the seed management command:
+
+python manage.py seed
+This will perform the same tasks programmatically.
+
+Step 4: Verify Admin Panel
+Run the server:
+python manage.py runserver
+Log in to the admin panel (/admin/) using the system credentials (username: system, password: password).
+Verify the presence of:
+HelloWorld Company in the Company section.
+Sample Product in the Product section linked to the company.
+
+
+Step 5: Test Models
+Create additional Company and Product entries via the admin panel to verify relationships and model functionality.
+Ensure the foreign key constraint between Product and Company is enforced.
+
+
+Expected Behavior
+Fixture Loading:
+Running loaddata successfully seeds the database with the specified entries.
+Seed Command:
+Running the seed command creates the same entries programmatically if they don’t already exist.
+Admin Panel:
+The Company and Product models are registered and properly displayed with searchable and filterable fields.
+Relationships:
+Products are correctly associated with their respective Company.
+
